@@ -2,7 +2,9 @@ package org.darrexus.webapp.mediaLib.resources;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -39,12 +41,20 @@ public class MessageResource {
 	}
 	
 	@PUT
-	@Path("/{messageId}/{message}")
+	@Path("/{messageId}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message updateMessage(@PathParam("messageId") Long msgId, @PathParam("message") String msg){
-		Message message = messageService.getMessage(msgId);
-		message.setMessage(msg);
+	public Message updateMessage(Message message){ //@PathParam("messageId") Long msgId, @PathParam("message") String msg
+		//Message message = messageService.getMessage(msgId);
+		//message.setMessage(msg);
 		return messageService.updateMessage(message);
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message aadMessage(Message message){
+		return messageService.addMessage(message);		
 	}
 	
 }

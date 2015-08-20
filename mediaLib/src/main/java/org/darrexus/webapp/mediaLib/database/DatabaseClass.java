@@ -8,13 +8,13 @@ import org.darrexus.webapp.mediaLib.model.*;
 public class DatabaseClass {
 	
 	private static Map<Long, Message> messages = new HashMap();
-	private static Map<Long, Profile> profiles = new HashMap();
+	private static Map<String, Profile> profiles = new HashMap();
 	
 	public static Map<Long, Message> getMessage(){
 		return messages;
 	}
 	
-	public static Map<Long, Profile> getProfile(){
+	public static Map<String, Profile> getProfile(){
 		return profiles;
 	}
 

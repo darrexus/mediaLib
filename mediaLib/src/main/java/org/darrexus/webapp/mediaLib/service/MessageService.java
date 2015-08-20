@@ -1,6 +1,7 @@
 package org.darrexus.webapp.mediaLib.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -22,20 +23,31 @@ public class MessageService {
 	
 	
 	public List<Message> getAllMessages(){
-		return new ArrayList<Message>(messages.values());
-		//Message m1 = new Message(1, "message 1", "Dare");
-		//Message m2 = new Message(2, "message 2", "Dare");
-		//Message m3 = new Message(3, "message 3", "Dare");
-		//Message m4 = new Message(4, "message 4", "Dare");
-		//Message m5 = new Message(5, "message 5", "Dare");		
-		//List<Message> list = new ArrayList<>();
-		//list.add(m1);
-		//list.add(m2);
-		//list.add(m3);
-		//list.add(m4);
-		//list.add(m5);		
-		//return list;
+		return new ArrayList<Message>(messages.values());		
 	}
+	
+	//Filtering by Year
+	public List<Message> getAllMessagesForYear(int year){
+		List<Message> messagesForYear = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		for(Message message : messages.values()){
+			cal.setTime(message.getCreated());
+			if(cal.get(Calendar.YEAR) == year){
+				messagesForYear.add(message)
+;			}
+		}
+		return messagesForYear;
+	}
+	
+	//Pagination method
+	public List<Message> getAllMessagesPaginated(int start, int size){
+		ArrayList<Message> list = new ArrayList<Message>(messages.values());
+		if(start + size > list.size())
+			return new ArrayList<Message>();
+		
+		return list.subList(start, start + size);
+	}	
+	
 	//GET
 	public Message getMessage(Long id){
 		return messages.get(id);
